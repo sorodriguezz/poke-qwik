@@ -1,0 +1,28 @@
+/**
+ * Tailwind CSS imports
+ * View the full documentation at https://tailwindcss.com
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background: rgb(8, 0, 38);
+  color: white;
+}
+
+.btn {
+  @apply rounded px-4 py-2 font-bold;
+}
+
+.btn-primary {
+  @apply bg-purple-600 text-white;
+}
+
+.btn-primary:hover {
+  @apply bg-purple-700 text-white;
+}
+
+button:disabled {
+  @apply bg-gray-800;
+}
