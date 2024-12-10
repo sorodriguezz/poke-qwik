@@ -4,14 +4,14 @@ import { PokemonImage } from "~/components/pokemons/pokemon-image";
 
 export default component$(() => {
   const numRandom = Math.floor(Math.random() * 1025) + 1;
-  const pokemonId = useSignal<number>(numRandom); // para primitivos
+  const pokemonId = useSignal<number>(numRandom);
   const showBackImage = useSignal<boolean>(false);
-  const showVisibileImage = useSignal<boolean>(false);
+  const showVisibileImage = useSignal<boolean>(true);
 
   const changePokemonId = $(() => {
     const randomNumber = Math.floor(Math.random() * 1025) + 1;
-
     pokemonId.value = randomNumber;
+    showVisibileImage.value = true;
   });
 
   const changeShowBackIamge = $(
@@ -24,7 +24,7 @@ export default component$(() => {
 
   return (
     <>
-      <span class="text-2xl pokemon-title">¿Quién es ese Pokémon?</span>
+      <span class="pokemon-title text-2xl">¿Quién es ese Pokémon?</span>
       {/* <span class="text-9xl">{pokemonId}</span> */}
 
       <PokemonImage
