@@ -1,8 +1,10 @@
 import { $, component$, useSignal } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import { type DocumentHead, useNavigate } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
 
 export default component$(() => {
+  const nav = useNavigate();
+
   const numRandom = Math.floor(Math.random() * 1025) + 1;
   const pokemonId = useSignal<number>(numRandom);
   const showBackImage = useSignal<boolean>(false);
@@ -22,17 +24,23 @@ export default component$(() => {
     () => (showVisibileImage.value = !showVisibileImage.value),
   );
 
+  const goToPokemon = $(() => {
+    nav(`/pokemon/${pokemonId.value}/`);
+  });
+
   return (
     <>
-      <span class="pokemon-title text-2xl">¿Quién es ese Pokémon?</span>
+      <span class="pokemon-title mt-12 text-2xl">¿Quién es ese Pokémon?</span>
       {/* <span class="text-9xl">{pokemonId}</span> */}
 
-      <PokemonImage
-        id={pokemonId.value}
-        size={400}
-        backImagen={showBackImage.value}
-        isVisible={showVisibileImage.value}
-      />
+      <div onClick$={() => goToPokemon()}>
+        <PokemonImage
+          id={pokemonId.value}
+          size={400}
+          backImagen={showBackImage.value}
+          isVisible={showVisibileImage.value}
+        />
+      </div>
 
       <div class="mt-2">
         <button onClick$={() => changePokemonId()} class="btn btn-primary mr-2">

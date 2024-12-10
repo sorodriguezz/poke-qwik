@@ -1,5 +1,6 @@
-import { component$, Slot } from "@builder.io/qwik";
-import type { RequestHandler } from "@builder.io/qwik-city";
+import { component$, Slot, useStyles$ } from "@builder.io/qwik";
+import { Link, type RequestHandler } from "@builder.io/qwik-city";
+// import styles from './styles.css?inline';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -13,9 +14,21 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 };
 
 export default component$(() => {
+  // useStyles$(styles);
   return (
     <>
-      <main class="flex flex-col items-center justify-center">
+      <ul class="m-5">
+        <li>
+          <Link href="/">Pokémon</Link>
+        </li>
+        <li>
+          <Link href="/pokemons/list-ssr/">SSR - List</Link>
+        </li>
+        <li>
+          <Link href="/pokemons/list-client/">Client - List</Link>
+        </li>
+      </ul>
+      <main class="mt-12 flex flex-col items-center justify-center">
         <Slot />
       </main>
     </>
