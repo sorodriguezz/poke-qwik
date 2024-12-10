@@ -9,6 +9,12 @@
 html {
   background: rgb(8, 0, 38);
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .btn {
@@ -25,4 +31,19 @@ html {
 
 button:disabled {
   @apply bg-gray-800;
+}
+
+.pokemon-title {
+  font-family: 'Pokemon', sans-serif;
+  font-size: 3rem;
+  color: #f8d030;
+  text-transform: uppercase;
+  text-shadow:
+    2px 2px 0 #3b4cca,
+    -2px -2px 0 #3b4cca,
+    2px -2px 0 #3b4cca,
+    -2px 2px 0 #3b4cca,
+    4px 4px 0 #ff0000;
+  letter-spacing: 2px;
+  text-align: center;
 }

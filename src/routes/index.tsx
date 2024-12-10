@@ -3,36 +3,39 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
 
 export default component$(() => {
-  const pokemonId = useSignal<number>(1); // para primitivos
+  const numRandom = Math.floor(Math.random() * 1025) + 1;
+  const pokemonId = useSignal<number>(numRandom); // para primitivos
   const showBackImage = useSignal<boolean>(false);
-  // const pokemonId = useStore(); // para objecto y arreglos
+  const showVisibileImage = useSignal<boolean>(false);
 
-  const changePokemonId = $((value: number) => {
-    if (pokemonId.value + value <= 0) return;
+  const changePokemonId = $(() => {
+    const randomNumber = Math.floor(Math.random() * 1025) + 1;
 
-    pokemonId.value = pokemonId.value + value;
+    pokemonId.value = randomNumber;
   });
 
-  const changeShowBackIamge = $(() => {showBackImage.value = !showBackImage.value;});
+  const changeShowBackIamge = $(
+    () => (showBackImage.value = !showBackImage.value),
+  );
+
+  const changeShowVisibileImage = $(
+    () => (showVisibileImage.value = !showVisibileImage.value),
+  );
 
   return (
     <>
-      <span class="mt-12 text-2xl">Buscador simple</span>
-      <span class="text-9xl">{pokemonId}</span>
+      <span class="text-2xl pokemon-title">¿Quién es ese Pokémon?</span>
+      {/* <span class="text-9xl">{pokemonId}</span> */}
 
-      <PokemonImage id={pokemonId.value} size={400} backImagen={showBackImage.value} />
+      <PokemonImage
+        id={pokemonId.value}
+        size={400}
+        backImagen={showBackImage.value}
+        isVisible={showVisibileImage.value}
+      />
 
       <div class="mt-2">
-        <button
-          onClick$={() => changePokemonId(-1)}
-          class="btn btn-primary mr-2"
-        >
-          Anterior
-        </button>
-        <button
-          onClick$={() => changePokemonId(1)}
-          class="btn btn-primary mr-2"
-        >
+        <button onClick$={() => changePokemonId()} class="btn btn-primary mr-2">
           Siguiente
         </button>
         <button
@@ -40,6 +43,12 @@ export default component$(() => {
           class="btn btn-primary mr-2"
         >
           Voltear
+        </button>
+        <button
+          onClick$={() => changeShowVisibileImage()}
+          class="btn btn-primary mr-2"
+        >
+          Revelar
         </button>
       </div>
     </>
