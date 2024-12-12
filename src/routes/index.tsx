@@ -1,31 +1,29 @@
-import { $, component$, useSignal } from "@builder.io/qwik";
+import { $, component$, useContext } from "@builder.io/qwik";
 import { type DocumentHead, useNavigate } from "@builder.io/qwik-city";
 import { PokemonImage } from "~/components/pokemons/pokemon-image";
+import { PokemonGameContext } from "~/context";
 
 export default component$(() => {
   const nav = useNavigate();
 
-  const numRandom = Math.floor(Math.random() * 1025) + 1;
-  const pokemonId = useSignal<number>(numRandom);
-  const showBackImage = useSignal<boolean>(false);
-  const showVisibileImage = useSignal<boolean>(true);
+  const pokemonGame = useContext(PokemonGameContext);
 
   const changePokemonId = $(() => {
     const randomNumber = Math.floor(Math.random() * 1025) + 1;
-    pokemonId.value = randomNumber;
-    showVisibileImage.value = true;
+    pokemonGame.pokemonId = randomNumber;
+    pokemonGame.isPokemonVisible = true;
   });
 
   const changeShowBackIamge = $(
-    () => (showBackImage.value = !showBackImage.value),
+    () => (pokemonGame.showBackImage = !pokemonGame.showBackImage),
   );
 
   const changeShowVisibileImage = $(
-    () => (showVisibileImage.value = !showVisibileImage.value),
+    () => (pokemonGame.isPokemonVisible = !pokemonGame.isPokemonVisible),
   );
 
   const goToPokemon = $(() => {
-    nav(`/pokemon/${pokemonId.value}/`);
+    nav(`/pokemon/${pokemonGame.pokemonId}/`);
   });
 
   return (
@@ -35,10 +33,10 @@ export default component$(() => {
 
       <div onClick$={() => goToPokemon()}>
         <PokemonImage
-          id={pokemonId.value}
+          id={pokemonGame.pokemonId}
           size={400}
-          backImagen={showBackImage.value}
-          isVisible={showVisibileImage.value}
+          backImagen={pokemonGame.showBackImage}
+          isVisible={pokemonGame.isPokemonVisible}
         />
       </div>
 
